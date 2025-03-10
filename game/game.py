@@ -1,25 +1,18 @@
 import time
-from game import utils
-from game import world
-from game import player
+import game.utils as utils
+import game.world as world
+import game.player as player
+import game.command as command
+
 this_world = world.World()
 this_player = player.Player()
 
 def game():
     while True:
         utils.clear_screen()
-        this_player.display_stats()
-        display_choices()
-        choice = input("Enter choice: ")
-        if choice == "1":
-            this_player.display_inventory()
-        elif choice == "2":
-            this_player.current_location = this_world.travel(this_player.current_location)
-        elif choice == "3":
-            break
-        else:
-            print("Invalid choice. Please try again.")
-            time.sleep(1)
+        display_hud()  # Keep player stats separate from commands
+        command_input = input("Enter command: ")
+        command.process_command(command_input, this_world, this_player)
 
 def new_game():
     utils.clear_screen()
@@ -32,12 +25,8 @@ def new_game():
     utils.clear_screen()
     game()
 
-def load_game():
-    pass
-def save_game():
-    pass
-
-def display_choices():
-    print("1. View Inventory")
-    print("2. Travel")
-    print("3. Exit Game")
+def display_hud():
+    print("========== Player Stats ==========")
+    print(f"Current Location: {this_player.current_location.name}")
+    print(f"Gold: {this_player.gold}")
+    print("==================================\n")

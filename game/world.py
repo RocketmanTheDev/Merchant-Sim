@@ -10,10 +10,10 @@ class World: # Handles the world state
 
     def generate_world(self):
         print("Generating world...")
-        time.sleep(.5)
+        time.sleep(.1)
         utils.clear_screen()
         print("Creating default cities...")
-        time.sleep(.5)
+        time.sleep(.1)
         self.generate_city("Homestead", ["Farmland", "Tavern"])
         self.generate_city("Eldoria", ["Loom"])
         self.generate_city("Athelheim", ["Hunter", "Tanner"])
@@ -96,3 +96,5 @@ class City: # Handles city data
         for item, quantity in self.stock.items():
             print("{}: {}".format(item, quantity), end=" ")
         print("\n")
+
+
