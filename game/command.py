@@ -39,7 +39,7 @@ def process_command(command, this_world, this_player):
         return
 
     # List available travel locations
-    if "where can i travel" in command:
+    if "where can i travel" or "travel locations" in command:
         print("You can travel to:")
         for city in this_world.cities:
             print(f"- {city.name}")
