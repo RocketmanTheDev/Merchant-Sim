@@ -4,15 +4,15 @@ class Player: # Handles player data
     def __init__(self):
         self.name = ""
         self.gold = 0
-        self.inventory = {"Grain": 0}
+        self.inventory = {"grain": 0}
         self.current_location = None
 
     def generate_player(self):
         self.name = input("Enter your name: ")
         print("Welcome, {}!".format(self.name))
         self.gold = 100
-        self.inventory["Grain"] = 20
-        self.inventory["Meat"] = 10
+        self.inventory["grain"] = 20
+        self.inventory["meat"] = 10
         utils.clear_screen()
 
     def assign_location(self, location):

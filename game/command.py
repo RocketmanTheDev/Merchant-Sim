@@ -7,29 +7,28 @@ def process_command(command, this_world, this_player):
     # Display available commands
     if command in ["what can i do", "what can i do?", "help", "commands"]:
         list_commands()
-        input("\nPress Enter to continue...")  # Pauses before continuing
+        input("\nPress Enter to continue...")
         return
 
     # Open inventory
     if command in ["open inventory", "inventory"]:
         this_player.display_inventory()
-        input("\nPress Enter to continue...")  # Pause for readability
+        input("\nPress Enter to continue...")
         return
 
     # Drop or remove item from inventory
     match = re.search(r"(drop|remove) (\w+)", command)
     if match:
-        item_name = match.group(2).capitalize()
-        remove_item(this_player, item_name)
-        input("\nPress Enter to continue...")  # Pause for readability
+        remove_item(this_player, match.group(2).lower())
+        input("\nPress Enter to continue...")
         return
 
     # Travel to a city
-    if "travel to" in command:
+    if any(phrase in command for phrase in ["go to", "travel to"]):
         match = re.search(r"travel to (\w+)", command)
         if match:
-            city_name = match.group(1).capitalize()
-            city = next((c for c in this_world.cities if c.name.lower() == city_name.lower()), None)
+            city_name = match.group(1).lower()
+            city = next((c for c in this_world.cities if c.name.lower() == city_name), None)
             if city:
                 this_player.current_location = city
                 print(f"Traveling to {city.name}...")
@@ -39,7 +38,7 @@ def process_command(command, this_world, this_player):
         return
 
     # List available travel locations
-    if "where can i travel" or "travel locations" in command:
+    if any(phrase in command for phrase in ["where can i travel", "travel locations"]):
         print("You can travel to:")
         for city in this_world.cities:
             print(f"- {city.name}")
@@ -47,7 +46,7 @@ def process_command(command, this_world, this_player):
         return
 
     # Enter market
-    if command in ["go to market", "visit market", "enter market"]:
+    if any(phrase in command for phrase in ["go to market", "visit market", "enter market"]):
         enter_market(this_player, this_world)
         return
 
@@ -55,14 +54,14 @@ def process_command(command, this_world, this_player):
     match = re.search(r"buy (\d+|all|max) (\w+)", command)
     if match:
         amount, item_name = match.groups()
-        buy_item(this_player, item_name.capitalize(), amount)
+        buy_item(this_player, item_name.lower(), amount)
         return
 
     # Selling items
     match = re.search(r"sell (\d+|all|max) (\w+)", command)
     if match:
         amount, item_name = match.groups()
-        sell_item(this_player, item_name.capitalize(), amount)
+        sell_item(this_player, item_name.lower(), amount)
         return
 
     # Exit market
@@ -70,6 +69,7 @@ def process_command(command, this_world, this_player):
         return
 
     print("I didn't understand that command. Try again.")
+
 
 
 def list_commands():

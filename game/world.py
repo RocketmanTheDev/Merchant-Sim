@@ -6,7 +6,7 @@ class World: # Handles the world state
     def __init__(self):
         self.name = 'world'
         self.cities = []
-        self.base_prices = {'Grain': 5, 'Silk': 17, 'Leather': 15, 'Hides': 9, 'Meat': 7}
+        self.base_prices = {'grain': 5, 'silk': 17, 'leather': 15, 'hides': 9, 'meat': 7}
 
     def generate_world(self):
         print("Generating world...")
@@ -14,9 +14,9 @@ class World: # Handles the world state
         utils.clear_screen()
         print("Creating default cities...")
         time.sleep(.1)
-        self.generate_city("Homestead", ["Farmland", "Tavern"])
-        self.generate_city("Eldoria", ["Loom"])
-        self.generate_city("Athelheim", ["Hunter", "Tanner"])
+        self.generate_city("Homestead", ["farmland", "tavern"])
+        self.generate_city("Eldoria", ["loom"])
+        self.generate_city("Athelheim", ["hunter", "tanner"])
         utils.clear_screen()
 
     def generate_city(self, name, prefixes):
@@ -68,19 +68,19 @@ class City: # Handles city data
         self.prices = self.calculate_prices()
 
     def prefix_tick(self):
-        if "Farmland" in self.prefixes:
-            self.stock["Grain"] += round(random.randint(10, 20)*self.development/5)
-        if "Tavern" in self.prefixes:
-            self.stock["Meat"] -= 2
+        if "farmland" in self.prefixes:
+            self.stock["grain"] += round(random.randint(10, 20)*self.development/5)
+        if "tavern" in self.prefixes:
+            self.stock["meat"] -= 2
             self.development += random.randint(1,5)/100
-        if "Loom" in self.prefixes:
-            self.stock["Silk"] += round(random.randint(4, 8)*self.development/5)
-        if "Hunter" in self.prefixes:
-            self.stock["Meat"] += round(random.randint(5, 10)*self.development/5)
-            self.stock["Hides"] += round(random.randint(3, 6)*self.development/5)
-        if "Tanner" in self.prefixes:
-            self.stock["Hides"] -= 2
-            self.stock["Leather"] += round(random.randint(3, 5)*self.development/5)
+        if "loom" in self.prefixes:
+            self.stock["silk"] += round(random.randint(4, 8)*self.development/5)
+        if "hunter" in self.prefixes:
+            self.stock["meat"] += round(random.randint(5, 10)*self.development/5)
+            self.stock["hides"] += round(random.randint(3, 6)*self.development/5)
+        if "tanner" in self.prefixes:
+            self.stock["hides"] -= 2
+            self.stock["leather"] += round(random.randint(3, 5)*self.development/5)
 
         self.development = round(min(10, self.development), 2) # Cap development at 10 and round to 2 decimal places
 
