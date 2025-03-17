@@ -38,7 +38,7 @@ def process_command(command, this_world, this_player):
         return
 
     # List available travel locations
-    if any(phrase in command for phrase in ["where can i travel", "travel locations"]):
+    if any(phrase in command for phrase in ["where can i travel", "travel locations", "travel options"]):
         print("You can travel to:")
         for city in this_world.cities:
             print(f"- {city.name}")
@@ -46,7 +46,7 @@ def process_command(command, this_world, this_player):
         return
 
     # Enter market
-    if any(phrase in command for phrase in ["go to market", "visit market", "enter market"]):
+    if any(phrase in command for phrase in ["go to market", "visit market", "enter market", "market"]):
         enter_market(this_player, this_world)
         return
 
